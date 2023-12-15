@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<link rel="shortcut icon" href="123.ico" type="image/x-icon">
+<html>
+<head>
+  <title>IceBerry</title>
+  <style>
+    body {
+      background-color: rgb(196, 104, 230);
+    }
+    header {
+      text-align: center;
+      color: white;
+      font-size:xxx-large ;
+      font-family: cursive;
+    }
+    div {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      width: 700px;
+      margin: auto;
+      border-radius: 7px;
+      margin: auto;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.592);
+      text-align: center;
+      font: message-box;
+    }
+    footer {
+      color: white;
+      text-align: center;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+    <input type="image" src="123.ico" alt="">
+  <header>
+    IceBerry <sub><input type="image" src="img/mamooth.png" alt=""></sub>
+  </header>
+ <br> <footer> <br><a href="inicio.HTML"><input type="button" value="Clique aqui se já se cadastrou"></a><br></footer><br>
+  <div>
+    <h2>Cadastrar</h2>
+    <form id="cadastroForm">
+     <br> <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required><br><br>
+
+    <br>  <label for="sobrenome">Sobrenome:</label>
+      <input type="text" id="sobrenome" name="sobrenome" required><br><br>
+<br>
+      <label for="idade">Idade:</label>
+      <input type="number" id="idade" name="idade" required><br><br>
+
+      <input type="submit" value="Cadastrar">
+    </form>
+  </div>
+<br><br>
+
+  <footer>
+    ©VictorEmmanuelMaldanerBonadiman
+  </footer>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID",
+      measurementId: "YOUR_MEASUREMENT_ID"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Cadastrar usuário
+    const cadastroForm = document.getElementById('cadastroForm');
+    cadastroForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nome = cadastroForm.nome.value;
+      const sobrenome = cadastroForm.sobrenome.value;
+      const idade = cadastroForm.idade.value;
+
+      db.collection('usuarios').add({
+        nome: nome,
+        sobrenome: sobrenome,
+        idade: idade
+      })
+      .then(() => {
+        alert("Usuário cadastrado com sucesso!");
+        cadastroForm.reset();
+      })
+      .catch((error) => {
+        alert("Erro ao cadastrar usuário: " + error);
+      });
+    });
+  </script>
+</body>
+</html>
